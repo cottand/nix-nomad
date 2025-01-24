@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, fetchFromGitLab
-, self
+{
+  pkgs,
+  lib,
+  fetchFromGitLab,
+  self,
 }:
 
 let
@@ -22,7 +23,10 @@ let
     modules = [
       {
         options._module.args = lib.mkOption { visible = false; };
-        config._module.args = { inherit lib; nomad = self.lib; };
+        config._module.args = {
+          inherit lib;
+          nomad = self.lib;
+        };
       }
       ../modules
     ];
@@ -42,4 +46,5 @@ let
       </toc>
     '';
   };
-in docs.html
+in
+docs.html

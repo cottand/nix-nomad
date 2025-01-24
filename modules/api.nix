@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,9 +25,7 @@ with lib;
 
   config.nomad.build = rec {
     apiJob = mapAttrs (_: config._module.transformers.Job.toJSON) config.job;
-    apiJobFile = mapAttrs (name: job:
-      pkgs.writeText "${name}.json" (builtins.toJSON job)
-    ) apiJob;
+    apiJobFile = mapAttrs (name: job: pkgs.writeText "${name}.json" (builtins.toJSON job)) apiJob;
     apiJobFarm = pkgs.linkFarmFromDrvs "nomad-jobs" (builtins.attrValues apiJobFile);
   };
 }

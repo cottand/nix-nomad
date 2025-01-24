@@ -1,10 +1,11 @@
-{ pkgs }: with pkgs;
+{ pkgs }:
+with pkgs;
 
 mkShell {
   buildInputs = [
     go
     gomod2nix
     jq
-    nomad_1_5
+    nomad_1_9
   ];
 }

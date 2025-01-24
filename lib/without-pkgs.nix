@@ -1,4 +1,8 @@
-{ self, nixpkgs, nixpkgs-lib }:
+{
+  self,
+  nixpkgs,
+  nixpkgs-lib,
+}:
 
 let
   time = rec {
@@ -13,7 +17,12 @@ let
   };
 
   evalNomadJobs = import ./evalNomadJobs.nix {
-    inherit nixpkgs nixpkgs-lib nomad self;
+    inherit
+      nixpkgs
+      nixpkgs-lib
+      nomad
+      self
+      ;
   };
 
   mkNomadJobs = args: (nomad.evalNomadJobs args).nomad.build.apiJobFarm;
@@ -21,4 +30,5 @@ let
   nomad = {
     inherit evalNomadJobs mkNomadJobs time;
   };
-in nomad
+in
+nomad
